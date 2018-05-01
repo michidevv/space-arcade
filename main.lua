@@ -1,5 +1,7 @@
 require('src/dependencies')
 
+print('introspect', Utils.introspect)
+
 local makeEntities = function ()
   local w, h = love.graphics.getDimensions()
   local player = Player({x = w / 2 - 25, y = h - 50})
@@ -22,6 +24,9 @@ function love.load()
   love.keyboard.keys = {}
 
   player, enemies = makeEntities()
+
+  Event.subscribe('test', function(p) print('test cb', p) end)
+  Event.dispatch('test', 12)
 end
 
 function love.resize(w, h)
