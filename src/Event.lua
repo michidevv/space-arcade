@@ -4,9 +4,9 @@ Event.events = {}
 
 function Event.dispatch(event, params)
   local listeners = Event.events[event]
-  if listeners ~= nil and #listeners > 0 then
-    for i=1, #listeners do
-      listeners[i](params)
+  if listeners ~= nil then
+    for _, v in ipairs(listeners)  do
+      v(params)
     end
   end
 end
@@ -18,6 +18,11 @@ function Event.subscribe(event, cb)
 
   -- Return unsubscribe function.
   return function ()
-    table.remove(listeners, #listeners)
+    for i, v in ipairs(listeners) do
+      if v == cb then
+        -- listeners[i] = nil -- TODO: Investigate
+        table.remove(listeners, i)
+      end
+    end
   end
 end
