@@ -1,8 +1,10 @@
 require('src/dependencies')
 
+isRunning = true
+SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
+
 function makeEntities()
-  local w, h = love.graphics.getDimensions()
-  player = Player({x = w / 2 - 25, y = h - 50})
+  player = Player({x = SCREEN_WIDTH / 2 - 25, y = SCREEN_HEIGHT - 50})
   group = EnemyGroup()
 end
 
@@ -10,6 +12,7 @@ function love.load()
   love.window.setTitle('Space Arcade')
   love.keyboard.keys = {}
 
+  Event.subscribe('gameover', function() isRunning = false end)
   makeEntities()
 end
 
@@ -30,8 +33,10 @@ function love.keyboard.isPressed(key)
 end
 
 function love.update(dt)
-  player:update(dt)
-  group:update(dt)
+  if isRunning then
+    player:update(dt)
+    group:update(dt)
+  end
 
   love.keyboard.keys = {}
 end
@@ -39,4 +44,9 @@ end
 function love.draw()
   player:draw()
   group:draw()
+
+  if not isRunning then
+    love.graphics.setNewFont('res/font.ttf', 48)
+    love.graphics.printf("Game over!", 0, 150, SCREEN_WIDTH, 'center')
+  end
 end

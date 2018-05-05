@@ -14,9 +14,8 @@ function Player:constructor(params)
 end
 
 function Player._move(self, dt)
-  local width = love.graphics.getDimensions()
   if love.keyboard.isDown('right') then
-    self.x = self.x <= width - self.width and self.x + self.velocity * dt or self.x
+    self.x = self.x <= SCREEN_WIDTH - self.width and self.x + self.velocity * dt or self.x
   elseif love.keyboard.isDown('left') then
     self.x = self.x >=0 and self.x - self.velocity * dt or self.x
   end
@@ -34,7 +33,7 @@ function Player._updateBeams(self, dt)
     local beam = self.beams[i]
     beam:update(dt)
 
-    if beam.y <= 0 then
+    if beam.y <= 0 or beam.hasHit then
       table.remove(self.beams, i)
       self.isOverheated = false
     end
