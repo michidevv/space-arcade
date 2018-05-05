@@ -7,6 +7,9 @@ function Player:constructor(params)
   self.height = params.height or 50
   self.velocity = params.velocity or 250
 
+  -- Initial
+  self.isOverheated = false
+
   self.beams = {}
 end
 
@@ -20,8 +23,9 @@ function Player._move(self, dt)
 end
 
 function Player._shoot(self)
-  if love.keyboard.isPressed('space') then
+  if love.keyboard.isPressed('space') and not self.isOverheated then
     table.insert(self.beams, Beam({x=self.x + self.width / 2, y=self.y - self.height}))
+    self.isOverheated = true -- TODO: Pass from outside.
   end
 end
 
@@ -32,8 +36,8 @@ function Player._updateBeams(self, dt)
 
     if beam.y <= 0 then
       table.remove(self.beams, i)
+      self.isOverheated = false
     end
-
   end
 end
 
