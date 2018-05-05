@@ -5,4 +5,5 @@ require('src/Event')
 
 require('src/Player')
 require('src/Enemy')
+require('src/EnemyGroup')
 require('src/Beam')

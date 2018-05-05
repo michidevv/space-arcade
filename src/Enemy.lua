@@ -3,9 +3,13 @@ Enemy = Base:extend()
 function Enemy:constructor(params)
   self.x = params.x
   self.y = params.y
-  self.width = params.width or 30
-  self.height = params.height or 30
-  self.velocity = 50 or params.velocity
+  self.width = params.width or 25
+  self.height = params.height or 25
+  self.velocity = params.velocity or 50
+
+  self.pattern = 'left'
+
+  self.time = 0
 
   self.alive = true
 
@@ -25,7 +29,7 @@ function Enemy:collides(entity)
 end
 
 function Enemy:update(dt)
-  -- TODO: Add move logic
+
 end
 
 function Enemy:draw()
