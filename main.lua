@@ -1,5 +1,6 @@
 require('src/dependencies')
 
+-- TODO: Move out.
 local makeEntities = function ()
   local w, h = love.graphics.getDimensions()
   local player = Player({x = w / 2 - 25, y = h - 50})
@@ -13,12 +14,6 @@ end
 
 function love.load()
   love.window.setTitle('Space Invaders')
-  love.window.setMode(800, 600, {
-    -- resizable=true,
-    -- minwidth=800,
-    -- minheight=600
-  })
-
   love.keyboard.keys = {}
 
   player, enemies = makeEntities()
@@ -52,6 +47,8 @@ end
 function love.draw()
   player:draw()
   for _, v in pairs(enemies) do
-    v:draw()
+    if v.alive then
+      v:draw()
+    end
   end
 end

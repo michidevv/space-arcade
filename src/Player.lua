@@ -5,7 +5,7 @@ function Player:constructor(params)
   self.y = params.y
   self.width = params.width or 50
   self.height = params.height or 50
-  self.velocity = params.velocity or 300
+  self.velocity = params.velocity or 250
 
   self.beams = {}
 end
