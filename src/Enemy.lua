@@ -32,5 +32,5 @@ function Enemy:update(dt)
 end
 
 function Enemy:draw()
-  love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+  love.graphics.draw(SPRITE_SHEET, QUADS[2], self.x, self.y, 0, 2, 2)
 end

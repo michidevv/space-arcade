@@ -23,5 +23,16 @@ local function introspect (table, deep, spaces)
     print(indent .. '}' .. (deep > 0 and ',' or ''))
 end
 
-return { introspect = introspect }
+local function generateQuads (atlas, dim, num)
+    local quads = {}
+    local width, height = atlas:getDimensions()
+    -- TODO: Update to support y axis (columns in spritesheet).
+    for i = 1, num do
+        quads[i] = love.graphics.newQuad((i - 1) * dim.w, 0, dim.w, dim.h, width, height)
+    end
+
+    return quads
+end
+
+return { introspect = introspect, generateQuads = generateQuads }
 

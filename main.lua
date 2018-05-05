@@ -12,6 +12,9 @@ function love.load()
   love.window.setTitle('Space Arcade')
   love.keyboard.keys = {}
 
+  SPRITE_SHEET = love.graphics.newImage('res/spritesheet.png')
+  QUADS = Utils.generateQuads(SPRITE_SHEET, { w = 16, h = 16, }, 5)
+
   Event.subscribe('gameover', function(params)
     RUN_STATE = { isRunning = false, type = params.reason }
   end)
