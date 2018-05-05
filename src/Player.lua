@@ -47,8 +47,8 @@ function Player:update(dt)
 end
 
 function Player:draw()
-  -- TODO: Replace with sprite.
-  love.graphics.rectangle('fill', self.x, self.y, 50, 50)
+  love.graphics.draw(SPRITE_SHEET, QUADS[1], self.x, self.y, 0, 3, 3)
+
   for _, v in pairs(self.beams) do
     v:draw()
   end
