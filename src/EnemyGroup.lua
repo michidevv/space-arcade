@@ -8,22 +8,23 @@ function EnemyGroup:constructor()
 end
 
 function EnemyGroup:update(dt)
-    if self.time < 1 then
+    if self.time < 1 then -- Move out
         self.time = self.time + dt
         return
     end
 
     self.time = 0
 
-    local w = love.graphics.getDimensions()
-
     local firstEnemy = self:findFarthestAliveEnemy(true)
     local lastEnemy = self:findFarthestAliveEnemy(false)
 
     if (self.pattern == 'left' and firstEnemy.x - firstEnemy.velocity < 0) or
-        (self.pattern == 'right' and lastEnemy.x + lastEnemy.width + lastEnemy.velocity > w) then
+        (self.pattern == 'right' and lastEnemy.x + lastEnemy.width + lastEnemy.velocity > SCREEN_WIDTH) then
         for _, v in pairs(self.enemies) do
-            v.y = v.y + v.velocity * 1.5
+            v.y = v.y + v.velocity * 0.7
+            if (v.y >= SCREEN_HEIGHT - 80) then
+                Event.dispatch('gameover')
+            end
         end
 
         self.pattern = self.pattern == 'left' and 'right' or 'left'

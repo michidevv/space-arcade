@@ -5,17 +5,16 @@ function Enemy:constructor(params)
   self.y = params.y
   self.width = params.width or 25
   self.height = params.height or 25
-  self.velocity = params.velocity or 50
+  self.velocity = params.velocity or 35
 
   self.pattern = 'left'
 
-  self.time = 0
-
   self.alive = true
 
-  self.unsubscribe = Event.subscribe('beamupdate', function(...)
-    if self:collides(...) then
+  self.unsubscribe = Event.subscribe('beamupdate', function(entity)
+    if self:collides(entity) then
       self.alive = false
+      entity.hasHit = true
       self.unsubscribe()
     end
   end)

@@ -5,13 +5,15 @@ function Beam:constructor(params)
   self.y = params.y
   self.width = params.width or 10
   self.height = params.height or 20
-  self.velocity = 500 or params.velocity
+  self.velocity = params.velocity or 500
+
+  self.hasHit = false
 end
 
 function Beam:update(dt)
   self.y = self.y - self.velocity * dt
 
-  Event.dispatch('beamupdate', {x = self.x, y = self.y, width = self.width, height = self.height})
+  Event.dispatch('beamupdate', self) -- TODO: Will mutate original item, update implementation.
 end
 
 function Beam:draw()
