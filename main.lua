@@ -14,6 +14,10 @@ function love.load()
 
   SPRITE_SHEET = love.graphics.newImage('res/spritesheet.png')
   QUADS = Utils.generateQuads(SPRITE_SHEET, { w = 16, h = 16, }, 5)
+  SOUNDS = {
+    shoot = love.audio.newSource('res/shoot.wav', 'static'),
+    explosion = love.audio.newSource('res/explosion.wav', 'static'),
+  }
 
   Event.subscribe('gameover', function(params)
     RUN_STATE = { isRunning = false, type = params.reason }

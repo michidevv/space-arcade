@@ -13,6 +13,7 @@ function Enemy:constructor(params)
 
   self.unsubscribe = Event.subscribe('beamupdate', function(entity)
     if self:collides(entity) then
+      SOUNDS.explosion:play()
       self.alive = false
       entity.hasHit = true
       self.unsubscribe()
