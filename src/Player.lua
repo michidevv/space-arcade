@@ -23,6 +23,7 @@ end
 
 function Player._shoot(self)
   if love.keyboard.isPressed('space') and not self.isOverheated then
+    SOUNDS.shoot:play()
     table.insert(self.beams, Beam({x=self.x + self.width / 2, y=self.y - self.height}))
     self.isOverheated = true -- TODO: Pass from outside.
   end
